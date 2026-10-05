@@ -9,8 +9,8 @@ const BASE_TOPIC = "Waterworks";
 const DISCOVERY_PREFIX = "homeassistant";
 
 const PERIODIC_MQTTUPDATE_MS = 5 * 60 * 1000;
-const MIN_LEVEL = 15;
-const WARNING_LEVEL = 30;
+const MIN_LEVEL_PERCENT = 15;
+const WARNING_LEVEL_PERCENT = 30;
 const HYSTERESIS = 2;
 const SHORT_CYCLE_THRESHOLD_MS = 5* 1000;
 const SHORT_CYCLE_COUNT_THRESHOLD = 5;
@@ -498,10 +498,10 @@ function updateWaterStatus() {
   const SEVERITY = { NORMAL: 0, WARNING: 1, CRITICAL: 2 };
   let newStatus;
 
-  if (waterLevel <= MIN_LEVEL) {
+  if (waterLevel <= MIN_LEVEL_PERCENT) {
     newStatus = "CRITICAL";
   }
-  else if (waterLevel <= WARNING_LEVEL) {
+  else if (waterLevel <= WARNING_LEVEL_PERCENT) {
     newStatus = "WARNING";
   }
   else {
@@ -513,7 +513,7 @@ function updateWaterStatus() {
   }
 
   if (SEVERITY[newStatus] < SEVERITY[waterStatus]) {
-    const limit = newStatus === "NORMAL" ? WARNING_LEVEL : MIN_LEVEL;
+    const limit = newStatus === "NORMAL" ? WARNING_LEVEL_PERCENT : MIN_LEVEL_PERCENT;
     if (waterLevel <= limit + HYSTERESIS) {
       return;
     }
