@@ -341,8 +341,8 @@ The most important parameters are located near the beginning of the scripts.
 ### Main controller
 
 ```javascript
-const MIN_LEVEL = 15;
-const WARNING_LEVEL = 30;
+const MIN_LEVEL_PERCENT = 15;
+const WARNING_LEVEL_PERCENT = 30;
 const HYSTERESIS = 2;
 
 const SHORT_CYCLE_THRESHOLD_MS = 5 * 1000;
